@@ -9,6 +9,7 @@
 	export let controller: Controller;
 	export let active: boolean;
 	export let anyActive: boolean;
+	export let rows: number;
 
 	const pressed = derived(
 		[0, 1, 2, 3].map((i) => controller.buttons[i]),
@@ -42,9 +43,9 @@
 
 <svelte:window on:keypress={handleKeypress} />
 
-<div class="max-w-[80vh] max-h-[80vw]">
+<div class={`max-w-[80vw] ${rows === 2 ? 'max-h-[calc(50vh-3rem)]' : 'max-h-[calc(100vh-3rem)]'}`}>
 	<div
-		class={`flex rounded-full aspect-square border-solid border-8 border-${
+		class={`mx-auto max-w-full max-h-full flex rounded-full aspect-square border-solid border-8 border-${
 			controller.color
 		}-500 bg-${controller.color}-${active ? 800 : 300} dark:bg-${controller.color}-${
 			active ? 500 : 900

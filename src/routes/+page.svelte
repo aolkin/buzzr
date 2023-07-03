@@ -53,9 +53,10 @@
 		}
 	}
 
+	let numControllers;
 	$: {
-		const numControllers = Object.values(controllers).length;
-		if (numControllers > 3) {
+		numControllers = Object.values(controllers).length;
+		if (numControllers > 4) {
 			columns = Math.ceil(numControllers / 2);
 		} else {
 			columns = numControllers;
@@ -88,12 +89,13 @@
 </div>
 
 <!-- Buzzer Area -->
-<div class={`h-screen grid grid-cols-${columns} place-content-evenly gap-4 p-4`}>
+<div class={`h-screen max-h-full grid grid-cols-${columns} place-content-evenly gap-6 p-6`}>
 	{#each Object.values(controllers) as controller}
 		<Buzzer
 			{controller}
 			active={active?.index === controller.index}
 			anyActive={active !== undefined}
+			rows={numControllers > columns ? 2 : 1}
 			on:press={(e) => press(controller, e)}
 		/>
 	{/each}
